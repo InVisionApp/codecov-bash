@@ -3,21 +3,21 @@ Codecov Global Uploader
 ### Upload reports to Codecov for almost every supported language.
 [![codecov](https://codecov.io/gh/codecov/codecov-bash/branch/master/graph/badge.svg?token=iEvSTnW9Qm)](https://codecov.io/gh/codecov/codecov-bash)
 
-[Deployed Version](https://codecov.io/bash)
+[Deployed Version](https://raw.githubusercontent.com/InVisionApp/codecov-bash/stable/codecov)
 
 ## Running the bash uploader
 
 -----
 ```bash
 # All CI
-bash <(curl -s https://codecov.io/bash)
+bash <(curl -s https://raw.githubusercontent.com/InVisionApp/codecov-bash/stable/codecov)
 
 # Pipe to bash (Jenkins)
-curl -s https://codecov.io/bash | bash -s - -t token
+curl -s https://raw.githubusercontent.com/InVisionApp/codecov-bash/stable/codecov | bash -s - -t token
 #                                           ^ add your extra config here
 
 # No bash method
-curl -s https://codecov.io/bash > .codecov
+curl -s https://raw.githubusercontent.com/InVisionApp/codecov-bash/stable/codecov > .codecov
 chmod +x .codecov
 ./.codecov
 ```
@@ -27,7 +27,7 @@ chmod +x .codecov
 As an additional layer of security, users may wish to check the script against the provided SHASUMs.
 
 ```bash
-curl -fLso codecov https://codecov.io/bash;
+curl -fLso codecov https://raw.githubusercontent.com/InVisionApp/codecov-bash/stable/codecov;
 VERSION=$(grep -o 'VERSION=\"[0-9\.]*\"' codecov | cut -d'"' -f2);
 for i in 1 256 512
 do
@@ -39,7 +39,7 @@ done
 or for older versions of `shasum`
 
 ```bash
-curl -fLso codecov https://codecov.io/bash;
+curl -fLso codecov https://raw.githubusercontent.com/InVisionApp/codecov-bash/stable/codecov;
 VERSION=$(grep -o 'VERSION=\"[0-9\.]*\"' codecov | cut -d'"' -f2);
 for i in 1 256 512
 do
@@ -58,25 +58,25 @@ done
 ```yaml
 # public repo on Travis CI
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://raw.githubusercontent.com/InVisionApp/codecov-bash/stable/codecov)
 ```
 
 ```yaml
 # private repo
 after_success:
-  - bash <(curl -s https://codecov.io/bash) -t your-repository-upload-token
+  - bash <(curl -s https://raw.githubusercontent.com/InVisionApp/codecov-bash/stable/codecov) -t your-repository-upload-token
 ```
 
 ```yaml
 # Flag build types
 after_success:
-  - bash <(curl -s https://codecov.io/bash) -F unittests
+  - bash <(curl -s https://raw.githubusercontent.com/InVisionApp/codecov-bash/stable/codecov) -F unittests
 ```
 
 ```yaml
 # Include environment variables to store per build
 after_success:
-  - bash <(curl -s https://codecov.io/bash) -e TOX_ENV,CUSTOM_VAR
+  - bash <(curl -s https://raw.githubusercontent.com/InVisionApp/codecov-bash/stable/codecov) -e TOX_ENV,CUSTOM_VAR
 ```
 
 > When running the codecov-bash uploader on Alpine Linux, you are likely to run into a parsing issue because of the default shell. To be able to upload reports, you need to issue the following commands.
@@ -84,14 +84,14 @@ after_success:
 ```yaml
 after_success:
   - apk -U add git curl bash findutils
-  - bash -c '/bin/bash <(curl -s https://codecov.io/bash)'
+  - bash -c '/bin/bash <(curl -s https://raw.githubusercontent.com/InVisionApp/codecov-bash/stable/codecov)'
 ```
 
 ### Prevent build failures
 If Codecov fails to upload reports, you can ensure the CI build does not fail by adding a catch-all:
 
 ```
-bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
+bash <(curl -s https://raw.githubusercontent.com/InVisionApp/codecov-bash/stable/codecov) || echo "Codecov did not collect coverage reports"
 ```
 
 
@@ -126,7 +126,7 @@ bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverag
 
 ### Caveats
 
-1. **Jenkins**: Unable to find reports? Try `PWD=WORKSPACE bash <(curl -s https://codecov.io/bash)`
+1. **Jenkins**: Unable to find reports? Try `PWD=WORKSPACE bash <(curl -s https://raw.githubusercontent.com/InVisionApp/codecov-bash/stable/codecov)`
 
 
 ### Development
